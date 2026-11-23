@@ -2,15 +2,15 @@
 
 API RESTful desenvolvida em Node.js, Express, TypeScript e PostgreSQL (Sequelize) para gerenciamento de catálogo de aliens do universo **Ben 10**, configurada com esteira completa de CI/CD (GitHub Actions + Docker + Render).
 
-## 🔗 Link da API em Produção (Render)
+## Link da API em Produção (Render)
 
-- **URL Base da API:** `https://SUA-URL-DO-RENDER.onrender.com` *(substitua pelo link gerado no Render)*
-- **Health Check:** `https://SUA-URL-DO-RENDER.onrender.com/api/health`
-- **Documentação Swagger:** `https://SUA-URL-DO-RENDER.onrender.com/api-docs`
+- **URL Base da API:** `https://atv2-iec-qh59.onrender.com` 
+- **Health Check:** `https://atv2-iec-qh59.onrender.com/api/health`
+- **Documentação Swagger:** `https://atv2-iec-qh59.onrender.com/api-docs`
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **Backend:** Node.js 24, TypeScript, Express 5
 - **Banco de Dados:** PostgreSQL com Sequelize ORM (suporte a `DB_SSL`)
@@ -21,7 +21,7 @@ API RESTful desenvolvida em Node.js, Express, TypeScript e PostgreSQL (Sequelize
 
 ---
 
-## 🚀 Como Executar Localmente
+## Como Executar Localmente
 
 ### 1. Pré-requisitos
 - Node.js 24+ e `pnpm` instalados (ou Docker / Docker Compose)
@@ -53,7 +53,7 @@ docker compose up -d
 
 ---
 
-## ⚙️ Esteira de CI/CD (GitHub Actions + Render)
+## Esteira de CI/CD (GitHub Actions + Render)
 
 A cada `push` na branch `main`, o workflow `.github/workflows/deploy.yml` executa:
 1. **CI (Integração Contínua):** Instalação limpa via `pnpm install --frozen-lockfile`, verificação de lint (`pnpm lint`), checagem de tipos (`pnpm type-check`) e build (`pnpm build`).
@@ -62,7 +62,7 @@ A cada `push` na branch `main`, o workflow `.github/workflows/deploy.yml` execut
 
 ---
 
-## 📌 Endpoints Disponíveis
+## Endpoints Disponíveis
 
 | Método | Rota | Descrição |
 | :--- | :--- | :--- |
