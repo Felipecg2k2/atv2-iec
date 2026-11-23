@@ -1,0 +1,57 @@
+name: CI/CD Pipeline - Render
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ci-cd-pipeline:
+    name: Validação (CI), Docker Build e Deploy (CD)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v4
+
+      - name: Configuração do Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Configuração do pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.8.1
+
+      - name: Instalar Dependências
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint do Código (CI)
+        run: pnpm lint
+
+      - name: Checagem Estática de Tipos (CI)
+        run: pnpm type-check
+
+      - name: Compilação do Projeto (CI)
+        run: pnpm build
+
+      - name: Build da Imagem Docker (CD)
+        run: docker build -t api-ben10:latest .
+
+      - name: Disparo do Deploy Hook no Render (CD)
+        run: |
+          if [ -z "${{ secrets.RENDER_DEPLOY_HOOK_URL }}" ]; then
+            echo "Erro: A secret RENDER_DEPLOY_HOOK_URL não está configurada no repositório."
+            exit 1
+          fi
+
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}")
+          echo "Status HTTP retornado pelo Render: $HTTP_STATUS"
+
+          if [ "$HTTP_STATUS" -ne 200 ] && [ "$HTTP_STATUS" -ne 201 ]; then
+            echo "Falha ao acionar o deploy no Render. Código HTTP: $HTTP_STATUS"
+            exit 1
+          fi
+
+          echo "Deploy disparado com sucesso no Render!"
