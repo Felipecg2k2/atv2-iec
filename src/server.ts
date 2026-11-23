@@ -15,6 +15,7 @@ app.use(express.json());
 app.get('/api/health', (_req, res) => {
   res.status(200).json({
     status: 'ok',
+    versao: '1.0.1',
     uptime: Math.floor(process.uptime()),
     timestamp: new Date().toISOString(),
   });
